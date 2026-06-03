@@ -13,7 +13,7 @@ import { useTheme } from "next-themes"
 export default function DashBoardPage(){
 
     const router = useRouter()
-    const { filteredTasks, setTasks, tasks, search, setSearch, filterStatus, setFilterStatus,sortOrder, setSortOrder, } = useTasks()
+    const { currentPage,setCurrentPage,totalPages,paginatedTasks,filteredTasks, setTasks, tasks, search, setSearch, filterStatus, setFilterStatus,sortOrder, setSortOrder, } = useTasks()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined)
     const { theme, setTheme } = useTheme()
@@ -77,10 +77,30 @@ function handleEdit(task: Task) {
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
       />
-      <TaskTable tasks={filteredTasks}
+      <TaskTable tasks={paginatedTasks}
        onEdit={handleEdit}
        onDelete={handleDelete} />
+       
     </div>
+    <div className="flex items-center justify-center gap-4 mt-6">
+  <Button
+    variant="outline"
+    onClick={() => setCurrentPage(currentPage - 1)}
+    disabled={currentPage === 1}
+  >
+    Previous
+  </Button>
+  <span className="text-sm text-gray-500">
+    Page {currentPage} of {totalPages}
+  </span>
+  <Button
+    variant="outline"
+    onClick={() => setCurrentPage(currentPage + 1)}
+    disabled={currentPage === totalPages}
+  >
+    Next
+  </Button>
+</div>
     <TaskModal
       isOpen={isModalOpen}
       task={selectedTask}
