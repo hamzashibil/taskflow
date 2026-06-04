@@ -1,6 +1,6 @@
 # TaskFlow
 
-A simple task management dashboard built with Next.js, TypeScript, Tailwind CSS and shadcn/ui.
+A task management dashboard built with Next.js, TypeScript, Tailwind CSS and shadcn/ui.
 
 ## Screenshots
 
